@@ -24,19 +24,16 @@ function load_image(directory){
 }
 
 function add_to_ellipse_behaviour(timeline, start_angle, item){
-//    let alpha = new Clutter.Alpha({timeline:timeline, alpha:Clutter.Alpha.SINE_INC});
     let alpha = new Clutter.Alpha({timeline:timeline, mode:Clutter.AnimationMode.EASE_IN_OUT_SINE});
     let behave = new Clutter.BehaviourEllipse({alpha:alpha, 
 					       center:new Clutter.Knot({x:320, y:390}),
 					       width:450 , height:450,
 					       angle_start:start_angle ,angle_end: (start_angle + 360) % 360,
-//					       angle_start:0, angle_end: 180,
 					       direction:Clutter.RotateDirection.CW});
-
     behave.set_angle_tilt(Clutter.RotateAxis.X_AXIS, -90);
     behave.apply(item);
-    
 }
+
 function add_image_actors(stage, images, timeline){
     let x=20, y=0;
     let angle = 0;
@@ -54,6 +51,10 @@ function scale_texture_default(texture) {
     let size = texture.get_base_size();
     const scale = size[1]? IMAGE_HEIGHT / size[1] : 0;
     texture.set_scale(scale, scale);
+}
+
+function rotate_all_until_item_is_at_front(timeline, item){
+    timeline.stop();
 }
 
 Clutter.init(0,null);
